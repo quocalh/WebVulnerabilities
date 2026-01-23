@@ -20,7 +20,7 @@ const execSink = (cmd) => {
     console.log(`\n!!! [SINK REACHED] !!!`);
     console.log(`[SHELL]: Executing -> ${cmd}`);
 
-        // this shows nothing on the cmd, but it ran -> used in a real attack
+        // this shows nothing on the cmd, but it ran -> real attack
     // require('child_process').execSync(cmd)
 
     const { execSync } = require('child_process');
