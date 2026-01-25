@@ -2,6 +2,7 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('0.0.0.0', 1234))
+# s.bind(('42.116.117.214', 1234))
 s.listen(1)
 print("[*] Listening on port 1234...")
 

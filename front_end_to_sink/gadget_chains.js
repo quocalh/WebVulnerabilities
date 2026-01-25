@@ -81,7 +81,6 @@ function handleFlightRequest(incomingPayload) {
 
 // --- THE MALICIOUS INPUT ---
 
-
 const yourStupidReactFlightPayload = {
         // This looks like normal data, but 'proto' injects 'shell' into EVERY object
     "__proto__": {
