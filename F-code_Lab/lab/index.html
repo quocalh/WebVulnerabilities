@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hệ thống nội bộ F-Code - Login</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #2c3e50; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        
+        .login-card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 15px 25px rgba(0,0,0,0.5); width: 450px; position: relative; }
+        
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #666; font-weight: bold; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        
+        /* CSS CHO NÚT HIỆN PASSWORD */
+        .password-wrapper { position: relative; }
+        .password-wrapper input { padding-right: 40px; } /* Chừa chỗ cho con mắt */
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            user-select: none; /* Không cho bôi đen icon */
+            filter: grayscale(100%);
+            transition: 0.2s;
+        }
+        .toggle-password:hover { filter: grayscale(0%); transform: translateY(-50%) scale(1.1); }
+
+        button { width: 100%; padding: 12px; background: #1390d3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #21da0c; }
+        
+        .hacker-note { background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 25px; color: #856404; border: 1px solid #ffeeba; font-size: 0.9em; }
+        code { background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 3px; font-family: monospace; font-weight: bold; }
+        
+        /* Console Output Style */
+        #console-output { margin-top: 20px; background: #1e1e1e; color: #00ff00; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; font-size: 13px; white-space: pre-wrap; display: none; border: 1px solid #333; max-height: 300px; overflow-y: auto; }
+        
+        /* --- CSS CHO THÔNG BÁO THÀNH CÔNG --- */
+        .success-modal {
+            display: none; /* Mặc định ẩn */
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-weight: bold;
+            text-align: center;
+            animation: slideDown 0.5s ease-out;
+            z-index: 1000;
+            width: 80%;
+            transition: opacity 0.5s ease; /* Hiệu ứng mờ dần khi tắt */
+        }
+        
+        @keyframes slideDown {
+            from { top: -50px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="success-alert" class="success-modal">
+        🎉 ĐĂNG NHẬP THÀNH CÔNG! <br>
+        <span style="font-size: 0.8em; font-weight: normal;">(Admin Access Granted)</span>
+    </div>
+
+    <div class="login-card">
+        <h1>Login</h1>
+        
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Nhập username">
+        </div>
+        
+        <div class="input-group">
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Nhập password">
+                <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+            </div>
+        </div>
+
+        <button onclick="handleLogin()">Đăng nhập</button>
+
+        <div class="hacker-note">
+            <strong>⚠️ Lưu ý Lab CVE-2025-1094:</strong><br>
+            Sử dụng <code>¿</code> để giả lập byte lỗi.<br>
+            Ví dụ: <code>¿ \! ls -la /</code>
+        </div>
+        
+        <div id="console-output"></div>
+    </div>
+
+    <script>
+        // --- HÀM BẬT/TẮT HIỂN THỊ PASSWORD ---
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.innerText = '🙈'; // Đổi icon thành khỉ che mắt (hoặc gạch chéo)
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.innerText = '👁️'; // Đổi lại icon mắt mở
+            }
+        }
+
+        async function handleLogin() {
+            const userVal = document.getElementById('username').value;
+            const passVal = document.getElementById('password').value;
+            const output = document.getElementById('console-output');
+            const successAlert = document.getElementById('success-alert');
+            
+            // Reset trạng thái
+            output.style.display = "block";
+            output.innerText = "Đang xác thực...";
+            
+            // Ẩn thông báo cũ (nếu có) để tránh chồng chéo
+            successAlert.style.display = "none";
+            successAlert.style.opacity = "1"; // Reset độ trong suốt
+
+            // --- CHUYỂN PASSWORD SANG HEX ---
+            let passHex = "";
+            for (let i = 0; i < passVal.length; i++) {
+                if (passVal.substring(i, i + 5) === "[BAD]") {
+                    passHex += "bf";
+                    i += 4;
+                } else {
+                    passHex += passVal.charCodeAt(i).toString(16).padStart(2, '0');
+                }
+            }
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: userVal, passwordHex: passHex })
+                });
+                
+                const data = await res.json();
+                
+                let logContent = `>> SQL SERVER NHẬN ĐƯỢC:\n${data.sql}\n\n`;
+                logContent += `>> KẾT QUẢ TỪ QUERY:\n${data.data}`;
+                if (data.raw_error) logContent += `\n>> STDERR:\n${data.raw_error}`;
+                
+                output.innerText = logContent;
+
+                // --- LOGIC HIỂN THỊ THÔNG BÁO ---
+                if (data.data && (data.data.includes("(1 row)") || data.data.includes("admin@fcode.org"))) {
+                    successAlert.style.display = "block";
+                    
+                    // --- TỰ ĐỘNG TẮT SAU 3 GIÂY ---
+                    setTimeout(() => {
+                        // Làm mờ dần trước khi ẩn hẳn cho đẹp
+                        successAlert.style.opacity = "0";
+                        
+                        // Sau khi mờ xong (500ms theo CSS transition) thì ẩn hẳn
+                        setTimeout(() => {
+                            successAlert.style.display = "none";
+                        }, 500);
+                        
+                    }, 3000); // Đợi 3000ms = 3 giây
+                }
+
+            } catch (e) {
+                output.innerText = "Lỗi kết nối: " + e;
+            }
+        }
+    </script>
+</body>
+</html>

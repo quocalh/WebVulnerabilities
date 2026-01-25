@@ -1,0 +1,6 @@
+FROM node:18-alpine
+WORKDIR /app
+RUN apk add --no-cache postgresql-client
+RUN npm init -y && npm install express pg body-parser
+COPY . .
+CMD ["node", "server.js"]

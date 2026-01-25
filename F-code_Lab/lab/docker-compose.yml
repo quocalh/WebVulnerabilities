@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16.1
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: fcode_db
+    # Log toàn bộ query để kiểm chứng
+    command: ["postgres", "-c", "log_statement=all", "-c", "client_encoding=UTF8"]
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - lab-network
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: admin
+      DB_PASS: password123
+      DB_NAME: fcode_db
+      PGPASSWORD: password123
+    networks:
+      - lab-network
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver
+    restart: unless-stopped
+    ports:
+      - "8978:8978"
+    depends_on:
+      - db
+    volumes:
+      - cloudbeaver-data:/opt/cloudbeaver/workspace
+    networks:
+      - lab-network
+
+networks:
+  lab-network:
+
+volumes:
+  cloudbeaver-data:
