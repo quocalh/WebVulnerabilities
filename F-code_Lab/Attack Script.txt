@@ -1,0 +1,3 @@
+- update role account or level < chỉnh sửa thông tin tài khoảng
+- chạy lệnh command
+- connect reverse_shell (lưu ý máy ảo docker dùng linux)
