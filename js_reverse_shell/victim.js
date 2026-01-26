@@ -2,7 +2,7 @@ const net = require('net');
 const { spawn } = require('child_process');
 
 // Configuration
-const HOST = '26.106.250.206';
+const HOST = '10.69.7.90';
 const PORT = 1234;
 
 const client = new net.Socket();
