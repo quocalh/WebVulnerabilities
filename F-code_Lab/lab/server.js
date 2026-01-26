@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { spawn } = require('child_process');
+const {spawn} = require('child_process');
 
 const app = express();
 app.use(bodyParser.json()); 
@@ -13,7 +13,6 @@ const DB_CONFIG = {
     database: process.env.DB_NAME || 'fcode_db',
 };
 
-// --- HÀM MÔ PHỎNG CVE-2025-1094 ---
 function vulnerableEscape(inputString) {
     const buf = Buffer.from(inputString, 'binary');
     let has_er = false;
@@ -37,7 +36,7 @@ function vulnerableEscape(inputString) {
 
 app.post('/login', (req, res) => {
     try {
-        const { username, passwordHex } = req.body;
+        const {username,passwordHex} = req.body;
         
         // 1. Decode password gốc
         const rawPassword = Buffer.from(passwordHex, 'hex').toString('binary');
@@ -81,7 +80,7 @@ app.post('/login', (req, res) => {
             });
         });
 
-    } catch(err){
+    }catch(err){
         console.error("Lỗi:", err);
         res.json({ success: false, error: err.message });
     }
