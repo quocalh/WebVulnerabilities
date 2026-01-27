@@ -16,7 +16,7 @@
         
         /* CSS CHO NÚT HIỆN PASSWORD */
         .password-wrapper { position: relative; }
-        .password-wrapper input { padding-right: 40px; } /* Chừa chỗ cho con mắt */
+        .password-wrapper input { padding-right: 40px; }
         .toggle-password {
             position: absolute;
             right: 10px;
@@ -24,7 +24,7 @@
             transform: translateY(-50%);
             cursor: pointer;
             font-size: 1.2rem;
-            user-select: none; /* Không cho bôi đen icon */
+            user-select: none;
             filter: grayscale(100%);
             transition: 0.2s;
         }
@@ -41,7 +41,7 @@
         
         /* --- CSS CHO THÔNG BÁO THÀNH CÔNG --- */
         .success-modal {
-            display: none; /* Mặc định ẩn */
+            display: none;
             position: absolute;
             top: 20px;
             left: 50%;
@@ -56,7 +56,7 @@
             animation: slideDown 0.5s ease-out;
             z-index: 1000;
             width: 80%;
-            transition: opacity 0.5s ease; /* Hiệu ứng mờ dần khi tắt */
+            transition: opacity 0.5s ease;
         }
         
         @keyframes slideDown {
@@ -107,10 +107,10 @@
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleBtn.innerText = '🙈'; // Đổi icon thành khỉ che mắt (hoặc gạch chéo)
+                toggleBtn.innerText = '🙈';
             } else {
                 passwordInput.type = 'password';
-                toggleBtn.innerText = '👁️'; // Đổi lại icon mắt mở
+                toggleBtn.innerText = '👁️';
             }
         }
 
@@ -120,13 +120,11 @@
             const output = document.getElementById('console-output');
             const successAlert = document.getElementById('success-alert');
             
-            // Reset trạng thái
             output.style.display = "block";
             output.innerText = "Đang xác thực...";
             
-            // Ẩn thông báo cũ (nếu có) để tránh chồng chéo
             successAlert.style.display = "none";
-            successAlert.style.opacity = "1"; // Reset độ trong suốt
+            successAlert.style.opacity = "1";
 
             // --- CHUYỂN PASSWORD SANG HEX ---
             let passHex = "";
@@ -160,10 +158,8 @@
                     
                     // --- TỰ ĐỘNG TẮT SAU 3 GIÂY ---
                     setTimeout(() => {
-                        // Làm mờ dần trước khi ẩn hẳn cho đẹp
                         successAlert.style.opacity = "0";
                         
-                        // Sau khi mờ xong (500ms theo CSS transition) thì ẩn hẳn
                         setTimeout(() => {
                             successAlert.style.display = "none";
                         }, 500);
