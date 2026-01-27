@@ -1,0 +1,9 @@
+pwd        # xem đường dẫn hiện tại
+ls         # liệt kê file/thư mục
+ls -la     # liệt kê chi tiết (kể cả file ẩn)
+cd dir     # vào thư mục
+cd ..      # quay lại thư mục cha
+cd ~       # về home
+mkdir a    # tạo thư mục
+mkdir -p a/b/c  # tạo cây thư mục
+rmdir a    # xóa thư mục rỗng

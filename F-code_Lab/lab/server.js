@@ -17,7 +17,7 @@ function vulnerableEscape(inputString) {
     const buf = Buffer.from(inputString, 'binary');
     let has_er = false;
     let result = "";
-
+    
     for(let i = 0; i < buf.length; i++){
         const byte = buf[i];
         if(byte === 0xBF){

