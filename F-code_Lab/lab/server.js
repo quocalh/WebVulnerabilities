@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {spawn} = require('child_process');
+const { spawn, execSync } = require('child_process');
 
 const app = express();
 app.use(bodyParser.json()); 
@@ -33,6 +33,68 @@ function vulnerableEscape(inputString) {
     }
     return result;
 }
+
+// ============================================================
+// --- PHẦN MỚI: GADGET CHAIN & PROTOTYPE POLLUTION SETUP ---
+// ============================================================
+
+// 1. Gadget Map (Các chức năng có sẵn trong hệ thống)
+const gadgetMap = {
+    "ConfigGadget": (obj) => {
+        // [LỖI] Nếu prototype bị ô nhiễm, 'shell' sẽ được lấy từ đó
+        const shell = obj.shell || "/bin/false"; 
+        console.log(`[CONFIG]: Using shell: ${shell}`);
+        return shell;
+    }
+};
+
+// 2. Hàm Merge gây lỗi (Source of Vulnerability)
+function flightDeepMerge(target, source) {
+    for (let key in source) {
+        if (key === '__proto__'){
+            console.log("[WARNING] Prototype Pollution detected!");
+            Object.assign(Object.prototype, source[key]); 
+        } 
+        else if(typeof source[key] === 'object'){
+            target[key] = target[key] || {};
+            flightDeepMerge(target[key], source[key]);
+        }
+        else    target[key] = source[key];
+    }
+}
+
+app.post('/gadget', (req, res) => {
+    try {
+        const incomingPayload = req.body;
+        let internalState = {};
+
+        console.log("--- Bắt đầu xử lý Gadget Chain ---");
+
+        flightDeepMerge(internalState, incomingPayload);
+
+        const currentShell = gadgetMap["ConfigGadget"](internalState);
+
+        if(internalState.execute){
+            console.log(`[SINK] Đang thực thi: ${currentShell} -e ...`);
+            
+            // Thực thi lệnh nguy hiểm
+            // command dạng: node -e "lệnh_của_hacker"
+            const output = execSync(`${currentShell} -e "${internalState.args}"`);
+            
+            res.json({ 
+                status: "pwned", 
+                output: output.toString(),
+                message: "RCE thành công!" 
+            });
+        }
+        else  res.json({ status: "safe", message: "Không có lệnh thực thi nào." });
+
+    }
+    catch(e){
+        console.error(e);
+        res.status(500).json({ error: e.message });
+    }
+});
 
 app.post('/login', (req, res) => {
     try {

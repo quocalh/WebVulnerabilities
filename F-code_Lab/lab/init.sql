@@ -9,7 +9,7 @@ CREATE TABLE users (
 INSERT INTO users (username, password, role, email) VALUES 
 ('admin', 'secret_admin_pass', 'admin', 'admin@fcode.org'),
 ('developer', 'dev_master_key', 'admin', 'dev@fcode.org'),
-('tuannv', '123456', 'user', 'tuan@fcode.org'),
+('tuan', '123456', 'user', 'tuan@fcode.org'),
 ('mod', 'modpass', 'user', 'mod@fcode.org'),
 ('bacon', 'ba123', 'user', 'bacon@roblox.com'),
 ('longle', 'longdz', 'user', 'long@fcode.org'),
